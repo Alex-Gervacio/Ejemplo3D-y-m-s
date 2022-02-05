@@ -32,18 +32,37 @@ namespace Ejemplo3D
         private void buttonSalida_Click(object sender, EventArgs e)
         {                                  
             labelDPI.Text = persona.Dpi;
-            labelNombre.Text = persona.Nombre;
-            labelApellido.Text = persona.Apellido;
+            labelNombre.Text = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(persona.Nombre).Trim();
+            labelApellido.Text = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(persona.Apellido).Trim();
             labelTelefono.Text = persona.Telefono;
-            labelFechaNacimiento.Text = persona.FechaNacimiento.ToString();
-            label1Edad.Text = persona.edad().ToString();
-           
+            //labelFechaNacimiento.Text = persona.FechaNacimiento.ToString();
+            //labelEdad.Text = persona.edad().ToString();
+            labelEdad.Visible = true;
         }
 
         private void buttonAbrirCuentas_Click(object sender, EventArgs e)
         {
             FormCuenta formularioCuenta = new FormCuenta();
             formularioCuenta.Show();
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime fechaActual = DateTime.Today;
+            int edad = fechaActual.Year - dateTimePicker1.Value.Year;
+            if (fechaActual < dateTimePicker1.Value.AddYears(edad)) edad--;
+
+            labelEdad.Text = "Tienes " + edad.ToString() + " años";
+        }
+
+        private void label1Edad_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
